@@ -1,91 +1,98 @@
-# Creación de los objetos principales
-personatge: Sprite = None
-cofreGradosCelsius: Sprite = None
-cofreGradosFarenheit: Sprite = None
+"""
 
-# Función de disparadores para grados Celsius
-def trigger_celsius():
-    if personatge.overlaps_with(cofreGradosCelsius):
-        game.ask("Presiona A para C°")
-        if controller.A.is_pressed():
-            grados_fahrenheit = game.ask_for_number("Digues Graus Fahrenheit")
-            mensaje = generar_mensaje_celsius(grados_fahrenheit)
-            game.show_long_text(mensaje, DialogLayout.CENTER)
+Creación de los objetos principales
 
-# Función que retorna un mensaje con la conversión de Fahrenheit a Celsius
-def generar_mensaje_celsius(fahrenheit):
-    celsius = convertir_fahrenheit_a_celsius(fahrenheit)
-    celsius_redondeado = Math.floor(celsius * 100) / 100
-    return "Conversión a grados Celsius: " + celsius_redondeado + " °C"
-
-def convertir_fahrenheit_a_celsius(fahrenheit):
-    """Convierte grados Fahrenheit a Celsius"""
-    return (fahrenheit - 32) * 0.555
-
-# Función de disparadores para grados Fahrenheit
-def trigger_fahrenheit():
-    if personatge.overlaps_with(cofreGradosFarenheit):
-        game.ask("Presiona A para °F")
-        if controller.A.is_pressed():
-            grados_celsius = game.ask_for_number("Digues Graus Celsius")
-            mensaje = generar_mensaje_fahrenheit(grados_celsius)
-            game.show_long_text(mensaje, DialogLayout.CENTER)
-
+"""
 # Función que retorna un mensaje con la conversión de Celsius a Fahrenheit
-def generar_mensaje_fahrenheit(celsius):
-    fahrenheit = convertir_celsius_a_fahrenheit(celsius)
-    fahrenheit_redondeado = Math.floor(fahrenheit * 100) / 100
-    return "Conversión a grados Fahrenheit:" + fahrenheit_redondeado + " °F"
-
-def convertir_celsius_a_fahrenheit(celsius):
-    """Convierte grados Celsius a Fahrenheit"""
-    return celsius * 9 / 5 + 32
-
-# Función principal del juego
-def juego(personatge, cofreGradosCelsius, cofreGradosFarenheit):
-    controller.move_sprite(personatge)
-    
-    # Función que se ejecuta cada 1250 milisegundos
-    def on_update_interval():
-        trigger_celsius()
-        trigger_fahrenheit()
-
-    game.on_update_interval(1250, on_update_interval)
+def generar_mensaje_fahrenheit(fahrenheit2: number):
+    return "Conversión a grados Fahrenheit:" + ("" + str(fahrenheit2)) + " °F"
 
 # Inicialización de las posiciones de los sprites
 def inicializar_sprites():
     personatge.set_position(76, 71)
     cofreGradosCelsius.set_position(24, 76)
     cofreGradosFarenheit.set_position(138, 76)
+def juego(personatge2: Sprite, cofreGradosCelsius2: Sprite, cofreGradosFarenheit2: Sprite):
+    controller.move_sprite(personatge2)
+    
+    def on_update_interval():
+        trigger_celsius()
+        trigger_fahrenheit()
+    game.on_update_interval(1250, on_update_interval)
+    
+# Función de disparadores para grados Celsius
+def trigger_celsius():
+    if personatge.overlaps_with(cofreGradosCelsius):
+        game.ask("Presiona A para C°")
+        if controller.A.is_pressed():
+            grados_fahrenheit = game.ask_for_number("Digues Graus Fahrenheit")
+            celsius2 = convertir_fahrenheit_a_celsius(grados_fahrenheit)
+            mensaje = generar_mensaje_celsius(celsius2)
+            game.show_long_text(mensaje, DialogLayout.CENTER)
+            textConveritdo.set_text("" + str(celsius2) + "°C")
+# Función de disparadores para grados Fahrenheit
+def trigger_fahrenheit():
+    if personatge.overlaps_with(cofreGradosFarenheit):
+        game.ask("Presiona A para °F")
+        if controller.A.is_pressed():
+            grados_celsius = game.ask_for_number("Digues Graus Celsius")
+            fahrenheit3 = convertir_celsius_a_fahrenheit(grados_celsius)
+            mensaje2 = generar_mensaje_fahrenheit(fahrenheit3)
+            game.show_long_text(mensaje2, DialogLayout.CENTER)
+            textConveritdo.set_text("" + str(fahrenheit3) + "°F")
 
+def convertir_celsius_a_fahrenheit(celsius3: number):
+    fahrenheit3 = celsius3 * 9 / 5 + 32
+    fahrenheit_redondeado = Math.floor(fahrenheit3 * 100) / 100
+    # Convierte grados Celsius a Fahrenheit
+    return fahrenheit_redondeado
+
+def convertir_fahrenheit_a_celsius(fahrenheit: number):
+    global celsiusConversor, celsius_redondeado
+    # Convierte grados Fahrenheit a Celsius
+    celsiusConversor = (fahrenheit - 32) * 0.555
+    celsius_redondeado = Math.floor(celsiusConversor * 100) / 100
+    return celsius_redondeado
+# Función que retorna un mensaje con la conversión de Fahrenheit a Celsius
+def generar_mensaje_celsius(celsius4: number):
+    return "Conversión a grados Celsius: " + ("" + str(celsius4)) + " °C"
+celsius_redondeado = 0
+celsiusConversor = 0
+fahrenheit_redondeado = 0
+fahrenheit2 = 0
+personatge: Sprite = None
+cofreGradosFarenheit: Sprite = None
+cofreGradosCelsius: Sprite = None
+textConveritdo: TextSprite = None
+textConveritdo = textsprite.create("Grados")
 scene.set_background_image(img("""
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        dddddddddddddddddddddd33dddddddddddddddddddddddddddddddddddddd33dddddddddddddddddddddddddddddddddddddd33dddddddddddddddddddddddddddddddddddddd33dddddddddddddddd
-        ddddddddddddddddddddddd3ddddddddddddddddddddddddddddddddddddddd3ddddddddddddddddddddddddddddddddddddddd3ddddddddddddddddddddddddddddddddddddddd3dddddddddddddddd
-        ddddddddddddddddddddd3333dddddddddddddddddddddddddddddddddddd3333dddddddddddddddddddddddddddddddddddd3333dddddddddddddddddddddddddddddddddddd3333ddddddddddddddd
-        dddddddddddddddddddd33333ddddddddddddddddddddddddddddddddddd33333ddddddddddddddddddddddddddddddddddd33333ddddddddddddddddddddddddddddddddddd33333ddddddddddddddd
-        ddddddddddddddddddd3333333ddddddddddddddddddddddddddddddddd3333333ddddddddddddddddddddddddddddddddd3333333ddddddddddddddddddddddddddddddddd3333333dddddddddddddd
-        ddddddddddddddddddd33333d3ddddddddddddddddddddddddddddddddd33333d3ddddddddddddddddddddddddddddddddd33333d3ddddddddddddddddddddddddddddddddd33333d3dddddddddddddd
-        ddddddddddddbddddddd3333ddddddddddddddddddddddddddddbddddddd3333ddddddddddddddddddddddddddddbddddddd3333ddddddddddddddddddddddddddddbddddddd3333dddddddddddddddd
-        ddddddddddddbdddddd3333333ddddddddddddddddddddddddddbdddddd3333333ddddddddddddddddddddddddddbdddddd3333333ddddddddddddddddddddddddddbdddddd3333333dddddddddddddd
-        ddddddddddddbddddd33333333ddddddddddddddddddddddddddbddddd33333333ddddddddddddddddddddddddddbddddd33333333ddddddddddddddddddddddddddbddddd33333333dddddddddddddd
-        ddddddddddddbdddd33333333333ddddddddddddddddddddddddbdddd33333333333ddddddddddddddddddddddddbdddd33333333333ddddddddddddddddddddddddbdddd33333333333dddddddddddd
-        dd33ddddddddbdd3d3333333333333ddddbddddddd33ddddddddbdd3d3333333333333ddddbddddddd33ddddddddbdd3d3333333333333ddddbddddddd33ddddddddbdd3d3333333333333ddddbddddd
-        d33333ddddddbdd333333333333333ddddbdddddd33333ddddddbdd333333333333333ddddbdddddd33333ddddddbdd333333333333333ddddbdddddd33333ddddddbdd333333333333333ddddbddddd
-        33333333ddddbddd33333333333333ddddbddddd33333333ddddbddd33333333333333ddddbddddd33333333ddddbddd33333333333333ddddbddddd33333333ddddbddd33333333333333ddddbddddd
-        333333333ddddbdddd333333333333ddddbddddd333333333ddddbdddd333333333333ddddbddddd333333333ddddbdddd333333333333ddddbddddd333333333ddddbdddd333333333333ddddbddddd
-        d33333333dddddbdddd3333333444444dbbdddd3d33333333dddddbdddd3333333444444dbbdddd3d33333333dddddbdddd3333333444444dbbdddd3d33333333dddddbdddd3333333444444dbbdddd3
-        d333333333dddddbb3333333444444444bdddd3dd333333333dddddbb3333333444444444bdddd3dd333333333dddddbb3333333444444444bdddd3dd333333333dddddbb3333333444444444bdddd3d
-        33333333ddddddddbb33333333443443bbdddddd33333333ddddddddbb33333333443443bbdddddd33333333ddddddddbb33333333443443bbdddddd33333333ddddddddbb33333333443443bbdddddd
-        333333333dddddd333b333333343334bb3ddddd3333333333dddddd333b333333343334bb3ddddd3333333333dddddd333b333333343334bb3ddddd3333333333dddddd333b333333343334bb3ddddd3
-        3333b33dddddd33333333333333333bbdddddd333333b33dddddd33333333333333333bbdddddd333333b33dddddd33333333333333333bbdddddd333333b33dddddd33333333333333333bbdddddd33
-        3333b3333ddddd333333333333333bbddddddd333333b3333ddddd333333333333333bbddddddd333333b3333ddddd333333333333333bbddddddd333333b3333ddddd333333333333333bbddddddd33
-        3333b33b33dddddd333344444333333ddddddd333333b33b33dddddd333344444333333ddddddd333333b33b33dddddd333344444333333ddddddd333333b33b33dddddd333344444333333ddddddd33
-        3333b33b33ddddd34444444444333333333ddd333333b33b33ddddd34444444444333333333ddd333333b33b33ddddd34444444444333333333ddd333333b33b33ddddd34444444444333333333ddd33
+        ddddddddddddddddddddddddddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddd33ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdddddddddddddddddddddddddddddddd33dddddddddddddddd
+        ddddddddddddddddddddddd3ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddddddddddddd3dddddddddddddddd
+        ddddddddddddddddddddd3333dddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddddddddddd3333ddddddddddddddd
+        dddddddddddddddddddd33333dddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdddddddddddddddddddddddddddddd33333ddddddddddddddd
+        ddddddddddddddddddd3333333ddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddddddddd3333333dddddddddddddd
+        ddddddddddddddddddd33333d3ddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddddddddd33333d3dddddddddddddd
+        ddddddddddddbddddddd3333ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddbddddddd3333dddddddddddddddd
+        ddddddddddddbdddddd3333333ddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddbdddddd3333333dddddddddddddd
+        ddddddddddddbddddd33333333ddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddbddddd33333333dddddddddddddd
+        ddddddddddddbdddd33333333333ddddddddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddbdddd33333333333dddddddddddd
+        dd33ddddddddbdd3d3333333333333ddddbddddddd33ddddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddbddddddd33ddddddddbdd3d3333333333333ddddbddddd
+        d33333ddddddbdd333333333333333ddddbdddddd33333ddddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddbdddddd33333ddddddbdd333333333333333ddddbddddd
+        33333333ddddbddd33333333333333ddddbddddd33333333ddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddbddddd33333333ddddbddd33333333333333ddddbddddd
+        333333333ddddbdddd333333333333ddddbddddd333333333dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddbddddd333333333ddddbdddd333333333333ddddbddddd
+        d33333333dddddbdddd3333333444444dbbdddd3d33333333dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff44dbbdddd3d33333333dddddbdddd3333333444444dbbdddd3
+        d333333333dddddbb3333333444444444bdddd3dd333333333ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff444bdddd3dd333333333dddddbb3333333444444444bdddd3d
+        33333333ddddddddbb33333333443443bbdddddd33333333ddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff43bbdddddd33333333ddddddddbb33333333443443bbdddddd
+        333333333dddddd333b333333343334bb3ddddd3333333333dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4bb3ddddd3333333333dddddd333b333333343334bb3ddddd3
+        3333b33dddddd33333333333333333bbdddddd333333b33dddffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbbdddddd333333b33dddddd33333333333333333bbdddddd33
+        3333b3333ddddd333333333333333bbddddddd333333b3333dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbddddddd333333b3333ddddd333333333333333bbddddddd33
+        3333b33b33dddddd333344444333333ddddddd333333b33b33ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff3ddddddd333333b33b33dddddd333344444333333ddddddd33
+        3333b33b33ddddd34444444444333333333ddd333333b33b33ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff33333ddd333333b33b33ddddd34444444444333333333ddd33
         3333b3b333dddd444444444443344433333ddd333333b3b333dddd444444444443344433333ddd333333b3b333dddd444444444443344433333ddd333333b3b333dddd444444444443344433333ddd33
         3333bbb3443d3334444444444443444333ddddd33333bbb3443d3334444444444443444333ddddd33333bbb3443d3334444444444443444333ddddd33333bbb3443d3334444444444443444333ddddd3
         3333bb3443334444444444444444344433dddd333333bb3443334444444444444444344433dddd333333bb3443334444444444444444344433dddd333333bb3443334444444444444444344433dddd33
@@ -373,13 +380,10 @@ animation.run_image_animation(personatge,
     150,
     True)
 personatge.set_position(76, 71)
+textConveritdo.set_position(74, 15)
 cofreGradosCelsius.set_position(24, 76)
 cofreGradosFarenheit.set_position(138, 76)
-
 # MAIN DE LA APLICACIÓN
-
 # Inicializar los sprites
 inicializar_sprites()
-
-# Ejecutar el juego
 juego(personatge, cofreGradosCelsius, cofreGradosFarenheit)
