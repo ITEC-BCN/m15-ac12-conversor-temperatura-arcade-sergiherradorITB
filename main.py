@@ -1,70 +1,78 @@
-"""
-
-Creación de los objetos principales
-
-"""
-# Función que retorna un mensaje con la conversión de Celsius a Fahrenheit
-def generar_mensaje_fahrenheit(fahrenheit2: number):
-    return "Conversión a grados Fahrenheit:" + ("" + str(fahrenheit2)) + " °F"
-
 # Inicialización de las posiciones de los sprites
 def inicializar_sprites():
+    textConveritdo.set_position(74, 15)
     personatge.set_position(76, 71)
     cofreGradosCelsius.set_position(24, 76)
     cofreGradosFarenheit.set_position(138, 76)
-def juego(personatge2: Sprite, cofreGradosCelsius2: Sprite, cofreGradosFarenheit2: Sprite):
-    controller.move_sprite(personatge2)
+
+def juego():
+    controller.move_sprite(personatge)
     
     def on_update_interval():
         trigger_celsius()
         trigger_fahrenheit()
     game.on_update_interval(1250, on_update_interval)
-    
-# Función de disparadores para grados Celsius
+
+"""
+Conversores de grados y sus triggers
+"""
+# Función de trigger para grados Celsius
 def trigger_celsius():
     if personatge.overlaps_with(cofreGradosCelsius):
         game.ask("Presiona A para C°")
         if controller.A.is_pressed():
-            grados_fahrenheit = game.ask_for_number("Digues Graus Fahrenheit")
-            celsius2 = convertir_fahrenheit_a_celsius(grados_fahrenheit)
-            mensaje = generar_mensaje_celsius(celsius2)
-            game.show_long_text(mensaje, DialogLayout.CENTER)
-            textConveritdo.set_text("" + str(celsius2) + "°C")
-# Función de disparadores para grados Fahrenheit
+            grados_fahrenheit = game.ask_for_number("Digues Graus Fahrenheit", 4)
+            celsius = convertir_fahrenheit_a_celsius(grados_fahrenheit)
+            mensaje_celsius = generar_mensaje_celsius(celsius)
+            game.show_long_text(mensaje_celsius, DialogLayout.CENTER)
+            textConveritdo.set_text(str(celsius) + "°C")
+
+# Función de trigger para grados Fahrenheit
 def trigger_fahrenheit():
     if personatge.overlaps_with(cofreGradosFarenheit):
         game.ask("Presiona A para °F")
         if controller.A.is_pressed():
-            grados_celsius = game.ask_for_number("Digues Graus Celsius")
-            fahrenheit3 = convertir_celsius_a_fahrenheit(grados_celsius)
-            mensaje2 = generar_mensaje_fahrenheit(fahrenheit3)
-            game.show_long_text(mensaje2, DialogLayout.CENTER)
-            textConveritdo.set_text("" + str(fahrenheit3) + "°F")
+            grados_celsius = game.ask_for_number("Digues Graus Celsius", 4)
+            fahrenheit = convertir_celsius_a_fahrenheit(grados_celsius)
+            mensaje_farenheit = generar_mensaje_fahrenheit(fahrenheit)
+            game.show_long_text(mensaje_farenheit, DialogLayout.CENTER)
+            textConveritdo.set_text(str(fahrenheit) + "°F")
 
+# Conversión de grados Celsius a Fahrenheit
 def convertir_celsius_a_fahrenheit(celsius3: number):
-    fahrenheit3 = celsius3 * 9 / 5 + 32
-    fahrenheit_redondeado = Math.floor(fahrenheit3 * 100) / 100
+    fahrenheit = celsius3 * 9 / 5 + 32
+    fahrenheit_redondeado = Math.floor(fahrenheit * 100) / 100
     # Convierte grados Celsius a Fahrenheit
     return fahrenheit_redondeado
 
+# Conversión de grados Fahrenheit a Celsius
 def convertir_fahrenheit_a_celsius(fahrenheit: number):
     global celsiusConversor, celsius_redondeado
     # Convierte grados Fahrenheit a Celsius
     celsiusConversor = (fahrenheit - 32) * 0.555
     celsius_redondeado = Math.floor(celsiusConversor * 100) / 100
     return celsius_redondeado
+    
 # Función que retorna un mensaje con la conversión de Fahrenheit a Celsius
-def generar_mensaje_celsius(celsius4: number):
-    return "Conversión a grados Celsius: " + ("" + str(celsius4)) + " °C"
+def generar_mensaje_celsius(celsius: number):
+    return "Conversión a grados Celsius: " + str(celsius) + " °C"
+
+# Función que retorna un mensaje con la conversión de Celsius a Fahrenheit
+def generar_mensaje_fahrenheit(fahrenheit: number):
+    return "Conversión a grados Fahrenheit: " + str(fahrenheit) + " °F"
+
+"""
+
+Creación de los objetos principales
+
+"""
+
 celsius_redondeado = 0
 celsiusConversor = 0
 fahrenheit_redondeado = 0
-fahrenheit2 = 0
-personatge: Sprite = None
-cofreGradosFarenheit: Sprite = None
-cofreGradosCelsius: Sprite = None
-textConveritdo: TextSprite = None
+fahrenheit = 0
 textConveritdo = textsprite.create("Grados")
+
 scene.set_background_image(img("""
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
@@ -218,8 +226,8 @@ personatge = sprites.create(img("""
             ...cccbbbbdd55ccdddbc...
             ......cccbdddbccccccc...
             ........cdd555dc........
-    """),
-    SpriteKind.player)
+    """), SpriteKind.player)
+    
 animation.run_image_animation(personatge,
     [img("""
             ........................
@@ -379,11 +387,7 @@ animation.run_image_animation(personatge,
         """)],
     150,
     True)
-personatge.set_position(76, 71)
-textConveritdo.set_position(74, 15)
-cofreGradosCelsius.set_position(24, 76)
-cofreGradosFarenheit.set_position(138, 76)
 # MAIN DE LA APLICACIÓN
 # Inicializar los sprites
 inicializar_sprites()
-juego(personatge, cofreGradosCelsius, cofreGradosFarenheit)
+juego()
