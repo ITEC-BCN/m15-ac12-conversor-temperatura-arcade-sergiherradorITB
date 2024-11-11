@@ -1,9 +1,10 @@
 {
-    "name": "Demo",
+    "name": "ConvertirGrados",
     "description": "",
     "dependencies": {
         "device": "*",
-        "arcade-text": "github:microsoft/arcade-text#v1.3.0"
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0",
+        "Demo": "github:raimonizard/makecode-arcade-template-repo#e66e789d80aeeeaa46bd911ad6d95578c4589327"
     },
     "files": [
         "main.blocks",
