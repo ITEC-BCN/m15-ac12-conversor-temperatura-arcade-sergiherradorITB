@@ -1,4 +1,14 @@
 {
+    "image1": {
+        "data": "hwQgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////8A8P//////////////////AP/v7u7u7u7u7u7u7u7u7vD/7u7u7u7u7u7u7u7u7u7/7+7u7u7u7u7u7u7u7u7u/+7u7u7u7u7u7u7u7u7u7v/u7uTu7u7u7u7u7u7u7u7/7k5O7u7u7u7u7u7u7u7u/+7u5O7u7u7u7u7u7u7u7v/u7u7u7u7u7u7u7u7u7u7/7u7uRERE7u7u7u7u7u7u/+7u7kRERO7u7u7u7u7u7v/u7kTu7u5E7u7u7u7u7u7/7u5E7u7uRO7u7u7u7u7u/+7uRO7u7kTu7u7u7u7u7v/u7kTu7u5E7u7u7u7u7u7/7u5E7u7uRO7u7u7u7u7u/+7uRO7u7kTu7u7u7u7u7v/u7u7u7u7u7u7u7u7u7u7/7u7u7u7u7u7u/+7u7u7u/+7u7u7u7u7u/lXv7u7u7v/u7u7u7u7u7v5V7+7u7u7/7u7u7u7u7u7u/+7u7u7u/+/u7u7u7u7u7u7u7u7u7vD/7u7u7u7u7u7u7u7u7u4A/+/u7u7u7u7u7u7u7u7uAPD//////////////////wAA//////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage"
+    },
+    "image2": {
+        "data": "hwQgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////8A8P//////////////////AP/v7u7u7u7u7u7u7u7u7vD/7u7u7u7u7u7u7u7u7u7/7+7u7u7u7u7u7u7u7u7u/+7u7u7u7u7u7u7u7u7u7v/u7uTu7u7u7u7u7u7u7u7/7k5O7u7u7u7u7u7u7u7u/+7u5O7u7u7u7u7u7u7u7v/u7u7u7u7u7u7u7u7u7u7/7u5ERERERO7u7u7u7u7u/+7uRERERETu7u7u7u7u7v/u7kTuRO7u7u7u7u7u7u7/7u5E7kTu7u7u7u7u7u7u/+7uRO5E7u7u7u7u7u7u7v/u7kTuRO7u7u7u7u7u7u7/7u5E7kTu7u7u7u7u7u7u/+7uRO5E7u7u7u7u7u7u7v/u7u7u7u7u7u7u7u7u7u7/7u7u7u7u7u7u/+7u7u7u/+7u7u7u7u7u/lXv7u7u7v/u7u7u7u7u7v5V7+7u7u7/7u7u7u7u7u7u/+7u7u7u/+/u7u7u7u7u7u7u7u7u7vD/7u7u7u7u7u7u7u7u7u4A/+/u7u7u7u7u7u7u7u7uAPD//////////////////wAA//////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage0"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",

@@ -3,7 +3,76 @@ namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
         switch(helpers.stringTrim(name)) {
-
+            case "image1":
+            case "myImage":return img`
+......ffffffffffffffffffff......
+.....ffffffffffffffffffffff.....
+....fffeeeeeeeeeeeeeeeeeefff....
+...fffeeeeeeeeeeeeeeeeeeeefff...
+..fffeeeeeeeeeeeeeeeeeeeeeefff..
+..ffeeeee4eeeeeeeeeeeeeeeeeeff..
+..ffeeee4e4eee444444eeeeeeeeff..
+..ffeeeee4eeee444444eeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeeeee444444eeeeeeeeff..
+..ffeeeeeeeeee444444eeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeffeeeeff..
+..ffeeeeeeeeeeeeeeeeef55feeeff..
+..ffeeeeeeeeeeeeeeeeef55feeeff..
+..ffeeeeeeeeeeeeeeeeeeffeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+`;
+            case "image2":
+            case "myImage0":return img`
+......ffffffffffffffffffff......
+.....ffffffffffffffffffffff.....
+....fffeeeeeeeeeeeeeeeeeefff....
+...fffeeeeeeeeeeeeeeeeeeeefff...
+..fffeeeeeeeeeeeeeeeeeeeeeefff..
+..ffeeeee4eeeeeeeeeeeeeeeeeeff..
+..ffeeee4e4e44444444eeeeeeeeff..
+..ffeeeee4ee44444444eeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44444444eeeeeeeeff..
+..ffeeeeeeee44444444eeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeee44eeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeffeeeeff..
+..ffeeeeeeeeeeeeeeeeef55feeeff..
+..ffeeeeeeeeeeeeeeeeef55feeeff..
+..ffeeeeeeeeeeeeeeeeeeffeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+..ffeeeeeeeeeeeeeeeeeeeeeeeeff..
+`;
         }
         return null;
     })

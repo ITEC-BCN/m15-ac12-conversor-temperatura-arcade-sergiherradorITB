@@ -1,52 +1,63 @@
-def convertir_graus_celsius():
-    global graus_fahrenheit, graus_celsius
-    graus_fahrenheit = game.ask_for_number("Digues Graus Fahrenheit")
-    # restar 32 y luego multiplicar por 5/ 9 o 0,555
-    graus_celsius = (graus_fahrenheit - 32) * 0.555
-    game.show_long_text("" + """
-            Conversión a grados Celsius
-        """ + ("" + str(graus_celsius)) + "°C",
-        DialogLayout.CENTER)
-def menu():
-    global opcio_usuari
-    opcio_usuari = game.ask_for_number("Escull 1 per dir hola; escull 2 per dir adéu", 1)
-    return opcio_usuari
+# Creación de los objetos principales
+personatge: Sprite = None
+cofreGradosCelsius: Sprite = None
+cofreGradosFarenheit: Sprite = None
 
-def juego():
-    cofreGradosCelsius.set_position(24, 23)
+# Función de disparadores para grados Celsius
+def trigger_celsius():
+    if personatge.overlaps_with(cofreGradosCelsius):
+        game.ask("Presiona A para C°")
+        if controller.A.is_pressed():
+            grados_fahrenheit = game.ask_for_number("Digues Graus Fahrenheit")
+            mensaje = generar_mensaje_celsius(grados_fahrenheit)
+            game.show_long_text(mensaje, DialogLayout.CENTER)
+
+# Función que retorna un mensaje con la conversión de Fahrenheit a Celsius
+def generar_mensaje_celsius(fahrenheit):
+    celsius = convertir_fahrenheit_a_celsius(fahrenheit)
+    celsius_redondeado = Math.floor(celsius * 100) / 100
+    return "Conversión a grados Celsius: " + celsius_redondeado + " °C"
+
+def convertir_fahrenheit_a_celsius(fahrenheit):
+    """Convierte grados Fahrenheit a Celsius"""
+    return (fahrenheit - 32) * 0.555
+
+# Función de disparadores para grados Fahrenheit
+def trigger_fahrenheit():
+    if personatge.overlaps_with(cofreGradosFarenheit):
+        game.ask("Presiona A para °F")
+        if controller.A.is_pressed():
+            grados_celsius = game.ask_for_number("Digues Graus Celsius")
+            mensaje = generar_mensaje_fahrenheit(grados_celsius)
+            game.show_long_text(mensaje, DialogLayout.CENTER)
+
+# Función que retorna un mensaje con la conversión de Celsius a Fahrenheit
+def generar_mensaje_fahrenheit(celsius):
+    fahrenheit = convertir_celsius_a_fahrenheit(celsius)
+    fahrenheit_redondeado = Math.floor(fahrenheit * 100) / 100
+    return "Conversión a grados Fahrenheit:" + fahrenheit_redondeado + " °F"
+
+def convertir_celsius_a_fahrenheit(celsius):
+    """Convierte grados Celsius a Fahrenheit"""
+    return celsius * 9 / 5 + 32
+
+# Función principal del juego
+def juego(personatge, cofreGradosCelsius, cofreGradosFarenheit):
     controller.move_sprite(personatge)
+    
+    # Función que se ejecuta cada 1250 milisegundos
     def on_update_interval():
-        if personatge.overlaps_with(cofreGradosCelsius):
-            game.ask("Presiona A para C°")
-            if controller.A.is_pressed():
-                convertir_graus_celsius()
-        if personatge.overlaps_with(cofreGradosFarenheit):
-            game.ask("Presiona A para °F")
-            if controller.A.is_pressed():
-                convertir_grados_fahrenheit()
+        trigger_celsius()
+        trigger_fahrenheit()
 
     game.on_update_interval(1250, on_update_interval)
-    
-def convertir_grados_fahrenheit():
-    global graus_celsius2, graus_fahrenheit2
-    graus_celsius2 = game.ask_for_number("Digues Graus Celsius")
-    # Convertir de Celsius a Fahrenheit
-    graus_fahrenheit2 = graus_celsius2 * 9 / 5 + 32
-    
-    graus_fahrenheit2 = Math.round(graus_fahrenheit2)
 
-    graus_fahrenheit_rounded = Math.floor(graus_fahrenheit2 * 100) / 100
+# Inicialización de las posiciones de los sprites
+def inicializar_sprites():
+    personatge.set_position(76, 71)
+    cofreGradosCelsius.set_position(24, 76)
+    cofreGradosFarenheit.set_position(138, 76)
 
-    # Mostrar el texto correctamente formateado
-    game.show_long_text("Conversión a grados Fahrenheit:\n" + graus_fahrenheit_rounded + " °F", DialogLayout.CENTER)
-
-graus_fahrenheit2 = 0
-graus_celsius2 = 0
-opcio_usuari = 0
-graus_celsius = 0
-graus_fahrenheit = 0
-cofreGradosCelsius: Sprite = None
-personatge: Sprite = None
 scene.set_background_image(img("""
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
@@ -169,66 +180,206 @@ scene.set_background_image(img("""
         4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
         4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
 """))
+cofreGradosCelsius = sprites.create(assets.image("""
+    myImage
+"""), SpriteKind.enemy)
+cofreGradosFarenheit = sprites.create(assets.image("""
+    myImage0
+"""), SpriteKind.enemy)
 personatge = sprites.create(img("""
-        . . . . . . . . . . . . . . . . 
-            . . . . c c c c . . . . . . . . 
-            . . c c 5 5 5 5 c c . . . . . . 
-            . c 5 5 5 5 5 5 5 5 c . . . . . 
-            c 5 5 5 5 5 1 f 5 5 5 c . . . . 
-            c 5 5 5 5 5 f f 5 5 5 5 c . . . 
-            c 5 5 5 5 5 5 5 5 5 5 5 c . . . 
-            c c b b 1 b 5 5 5 5 5 5 d c . . 
-            c 5 3 3 3 5 5 5 5 5 d d d c . . 
-            . b 5 5 5 5 5 5 5 5 d d d c . . 
-            . . c b b c 5 5 b d d d d c c . 
-            . c b b c 5 5 b b d d d d c d c 
-            . c c c c c c d d d d d d d d c 
-            . . . c c c c d 5 5 b d d d c . 
-            . . c c c c c b 5 5 b c c c . . 
-            . . c b b b c d 5 5 b c . . . .
+        ........................
+            ........................
+            ...........cc...........
+            ...........cccc.........
+            .......cc...ccccccc.....
+            .......cccccc555555cc...
+            ........ccb5555555555c..
+            .....cc..b555555555555c.
+            .....cccb555555ff155555c
+            .....ccb55555555ff55d55c
+            ......b5555555555555555c
+            ...c..b555d55555bb13bbc.
+            ...cccd55ddddd55bb3335c.
+            ....cbdddddddddd55b335c.
+            ..cccdddddb55bdddd5555c.
+            ..cccdddddb555bbbbcccc..
+            ...ccddddddb5555cbcdc...
+            ccccbdddddddcb55cbcc....
+            cddddddddd55dbccbbc.....
+            cbdddddddd555dbbbcc.....
+            .ccbdddbbdd555bbcdbcc...
+            ...cccbbbbdd55ccdddbc...
+            ......cccbdddbccccccc...
+            ........cdd555dc........
     """),
     SpriteKind.player)
-cofreGradosCelsius = sprites.create(img("""
-        . . b b b b b b b b b b b b . . 
-            . b e 4 4 4 4 4 4 4 4 4 4 e b . 
-            b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-            b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-            b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-            b e e 4 4 4 4 4 4 4 4 4 4 e e b 
-            b e e e e e e e e e e e e e e b 
-            b e e e e e e e e e e e e e e b 
-            b b b b b b b d d b b b b b b b 
-            c b b b b b b c c b b b b b b c 
-            c c c c c c b c c b c c c c c c 
-            b e e e e e c b b c e e e e e b 
-            b e e e e e e e e e e e e e e b 
-            b c e e e e e e e e e e e e c b 
-            b b b b b b b b b b b b b b b b 
-            . b b . . . . . . . . . . b b .
-    """),
-    SpriteKind.enemy)
-cofreGradosFarenheit = sprites.create(img("""
-        . . b b b b b b b b b b b b . . 
-            . b e 4 4 4 4 4 4 4 4 4 4 e b . 
-            b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-            b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-            b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-            b e e 4 4 4 4 4 4 4 4 4 4 e e b 
-            b e e e e e e e e e e e e e e b 
-            b e e e e e e e e e e e e e e b 
-            b b b b b b b d d b b b b b b b 
-            c b b b b b b c c b b b b b b c 
-            c c c c c c b c c b c c c c c c 
-            b e e e e e c b b c e e e e e b 
-            b e e e e e e e e e e e e e e b 
-            b c e e e e e e e e e e e e c b 
-            b b b b b b b b b b b b b b b b 
-            . b b . . . . . . . . . . b b .
-    """),
-    SpriteKind.enemy)
+animation.run_image_animation(personatge,
+    [img("""
+            ........................
+                ........................
+                ...........cc...........
+                ...........cccc.........
+                .......cc...ccccccc.....
+                .......cccccc555555cc...
+                ........ccb5555555555c..
+                .....cc..b555555555555c.
+                .....cccb555555ff155555c
+                .....ccb55555555ff55d55c
+                ......b5555555555555555c
+                ...c..b555d55555bb13bbc.
+                ...cccd55ddddd55bb3335c.
+                ....cbdddddddddd55b335c.
+                ..cccdddddb55bdddd5555c.
+                ..cccdddddb555bbbbcccc..
+                ...ccddddddb5555cbcdc...
+                ccccbdddddddcb55cbcc....
+                cddddddddd55dbccbbc.....
+                cbdddddddd555dbbbcc.....
+                .ccbdddbbdd555bbcdbcc...
+                ...cccbbbbdd55ccdddbc...
+                ......cccbdddbccccccc...
+                ........cdd555dc........
+        """),
+        img("""
+            ........................
+                ........................
+                ...........ccc..........
+                ...........cccc.........
+                .......ccc..ccccccc.....
+                .......cccccc555555cc...
+                ........ccb5555555555c..
+                .....cc..b555555555555c.
+                .....cccb555555ff155555c
+                ......cb55555555ff55d55c
+                ......b5555555555555555c
+                ...cc.b555dd5555bb13bbc.
+                ...cccd55ddddd555b3335c.
+                .....bdddddddddd55b335c.
+                ..cccdddddb55bbddd5555c.
+                ..cccdddddb555bbbbcccc..
+                ...ccddddddb5555cbcdc...
+                ccccbdddddd5cb55cbcc....
+                cddddddddd5555ccbbc.....
+                .cddddddbdd555bbbcc.....
+                ..ccdddbbbdd55cbcdc.....
+                ....ccbbcbddddccdddcc...
+                ......cccdd555dcccccc...
+                ........cccccccc........
+        """),
+        img("""
+            ........................
+                ............cc..........
+                ............ccc.........
+                ........ccc.ccccccc.....
+                ........ccccc555555cc...
+                ........ccb5555555555c..
+                .....ccc.b55555ff15555c.
+                .....cccb5555555ff55555c
+                ......cb555555555555d55c
+                ....c.b555555555bb55555c
+                ....ccb555ddd5555b13bbc.
+                ....ccd55ddddd555b3335c.
+                .....cdd5ddddddd55b335c.
+                ...c.bddddb555bbbd555c..
+                ...ccdddddbb55555bccc...
+                ...ccdddddddcc555bcc....
+                ...ccddddddddbcccbcccc..
+                .ccbddddddd55dbbbbc55c..
+                ccddddddddd555dbbcc5c...
+                cddddddbbbdd555bbccc....
+                .ccddddbbbbdd55bcc......
+                ...cccbbbbbdddbcddcc....
+                .....cccccdd555dcccc....
+                ..........cccccc........
+        """),
+        img("""
+            ........................
+                ............cc..........
+                ............ccc.........
+                ........ccc.ccccccc.....
+                ........ccccc555555cc...
+                ........ccb5555555555c..
+                .....ccc.b55555ff15555c.
+                .....cccb5555555ff55555c
+                ......cb555555555555d55c
+                ....c.b555555555bb55555c
+                ....ccb555ddd5555b13bbc.
+                ....ccd55ddddd555b3335c.
+                .....cdd5ddddddd55b335c.
+                ...c.bddddb555bbbd555c..
+                ...ccdddddbb55555bccc...
+                ...ccdddddddcc555bcc....
+                .ccccdddddddddcccbcccc..
+                .cdcdddddddd55dbbbc55c..
+                .cdddddddddd555dccc5c...
+                .cbddddbbbbdd5d555cc....
+                ..cbdddbbbbbdd5555......
+                ...cccbbbbbbd5555c......
+                .....cccccccc555c.......
+                .............ccc........
+        """),
+        img("""
+            ........................
+                ............cc..........
+                ............ccc.........
+                ........ccc.ccccccc.....
+                ........ccccc555555cc...
+                ........ccb5555555555c..
+                .....ccc.b55555ff15555c.
+                .....cccb5555555ff55555c
+                ......cb555555555555d55c
+                ....c.b555555555bb55555c
+                ....ccb555ddd5555b13bbc.
+                ....ccd55ddddd555b3335c.
+                .....cdd5ddddddd55b335c.
+                ...c.bddddb555bbbd555c..
+                ...ccdddddb555555bccc...
+                ..cccddddddcc5555bcc....
+                .cdccddddddddbcccbcccc..
+                .cddbdddddddddbbbbc55c..
+                .cdddddddddd55dbbbc5c...
+                .cbddddbbbbd55ddbccc....
+                ..cbdddbbbbd555dccc.....
+                ...cccbbbbbbddd555c.....
+                .....ccccccbd55555c.....
+                ...........cc5555c......
+        """),
+        img("""
+            ........................
+                ............cc..........
+                ............ccc.........
+                ........cc..ccccccc.....
+                ........ccccc555555cc...
+                ........ccb5555555555c..
+                .....cc..b555555555555c.
+                .....cccb555555ff155555c
+                ......cb55555555ff55d55c
+                ......b5555555555555555c
+                ...cc.b555dd5555bb13bbc.
+                ...cccd55ddddd555b3335c.
+                ....ccdd5ddddddd55b335c.
+                .....bddddb55bdddd5555c.
+                ..cccdddddb55bbbbbcccc..
+                .ccccddddddb5555cbcccc..
+                .cdccdddddddc555cbc55c..
+                .cdddddddddddcccbbc5c...
+                .cbddddddd55dbbbbccc....
+                .ccbdddddd555dbbbcbc....
+                ..cccddbbbd555bbccc.....
+                ....ccbbbbbd555cc.......
+                ......ccccbddddbc.......
+                ..........cd5555dc......
+        """)],
+    150,
+    True)
 personatge.set_position(76, 71)
-cofreGradosCelsius.set_position(24, 23)
-cofreGradosFarenheit.set_position(138, 23)
+cofreGradosCelsius.set_position(24, 76)
+cofreGradosFarenheit.set_position(138, 76)
 
-# MAIN DE LA APP
-juego()
+# MAIN DE LA APLICACIÓN
+
+# Inicializar los sprites
+inicializar_sprites()
+
+# Ejecutar el juego
+juego(personatge, cofreGradosCelsius, cofreGradosFarenheit)
